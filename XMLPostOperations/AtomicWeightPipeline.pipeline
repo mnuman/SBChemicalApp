@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+    <con:coreEntry>
+        <con:binding type="Mixed" xsi:type="con:MixedBindingType">
+            <con:request type="XML">
+                <con1:schema ref="XMLPostOperations/Schema/MessageStructures" element="GetAtomicWeight"/>
+            </con:request>
+            <con:response type="XML">
+                <con1:schema ref="XMLPostOperations/Schema/MessageStructures" element="GetAtomicWeightResponse"/>
+            </con:response>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:flow>
+            <con:route-node name="RouteNode1" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+                <con:context>
+                    <con2:userNsDecl prefix="wsx" namespace="http://www.webserviceX.NET"/>
+                </con:context>
+                <con:actions>
+                    <con1:route>
+                        <con2:id>_ActionId-7f000001.Nff3dbb8.0.15294268fee.N8000</con2:id>
+                        <con1:service ref="XMLPostOperations/WebServiceX_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>GetAtomicWeight</con1:operation>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform>
+                            <con3:replace contents-only="true" varName="body" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con2:id>_ActionId-7f000001.Nff3dbb8.0.15294268fee.N7ffd</con2:id>
+                                <con3:location>
+                                    <con2:xpathText>./wsx:GetAtomicWeightResponse/wsx:GetAtomicWeightResult</con2:xpathText>
+                                </con3:location>
+                                <con3:expr>
+                                    <con2:xqueryText>fn-bea:inlinedXML($body/wsx:GetAtomicWeightResponse/wsx:GetAtomicWeightResult)</con2:xqueryText>
+                                </con3:expr>
+                            </con3:replace>
+                        </con1:responseTransform>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>
