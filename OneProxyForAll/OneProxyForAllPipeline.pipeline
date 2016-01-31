@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:coreEntry>
         <con:binding type="Any XML"/>
         <con:xqConfiguration>
@@ -21,12 +21,19 @@
                                 <con3:assign varName="str_Destination">
                                     <con2:id>_ActionId-7f000001.6e0f11af.0.15297fbecb7.N7f9a</con2:id>
                                     <con3:expr>
-                                        <con2:xqueryText>upper-case($inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='RequestName']/@value)</con2:xqueryText>
+                                        <con2:xqueryText>concat('HTTP-',upper-case($inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='RequestName']/@value))</con2:xqueryText>
                                     </con3:expr>
                                 </con3:assign>
                             </con3:actions>
                         </con3:case>
-                        <con3:default/>
+                        <con3:default>
+                            <con3:assign varName="str_Destination">
+                                <con2:id>_ActionId-7f000001.N1dccba1f.0.152981927bc.N7ffd</con2:id>
+                                <con3:expr>
+                                    <con2:xqueryText>concat('XML-', upper-case(local-name($body/*[1])))</con2:xqueryText>
+                                </con3:expr>
+                            </con3:assign>
+                        </con3:default>
                     </con3:ifThenElse>
                 </con:actions>
             </con:stage>
@@ -47,8 +54,40 @@
                         </con1:expression>
                         <con1:case id="_BranchId-7f000001.N7d7f9e08.0.15297916a12.N7f3d">
                             <con1:operator>equals</con1:operator>
+                            <con1:value>'HTTP-GETATOMICNUMBER'</con1:value>
                             <con1:route>
                                 <con2:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7f3c</con2:id>
+                                <con1:service ref="HTTPGetOperations/HttpGetAtomicNumber" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                <con1:outboundTransform>
+                                    <con3:replace contents-only="true" varName="outbound">
+                                        <con2:id>_ActionId-7f000001.N1dccba1f.0.152981927bc.N7f83</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>./ctx:transport/ctx:request/http:query-parameters</con2:xpathText>
+                                        </con3:location>
+                                        <con3:expr>
+                                            <con2:xqueryText>$inbound/ctx:transport/ctx:request/http:query-parameters</con2:xqueryText>
+                                        </con3:expr>
+                                    </con3:replace>
+                                </con1:outboundTransform>
+                                <con1:responseTransform/>
+                            </con1:route>
+                        </con1:case>
+                        <con1:case id="_BranchId-7f000001.N1dccba1f.0.152981927bc.N7ff9">
+                            <con1:operator>equals</con1:operator>
+                            <con1:value>'HTTP-GETATOMICWEIGHT'</con1:value>
+                            <con1:route>
+                                <con2:id>_ActionId-7f000001.N1dccba1f.0.152981927bc.N7ff8</con2:id>
+                                <con1:service ref="HTTPGetOperations/HttpGetAtomicWeight" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                <con1:outboundTransform/>
+                                <con1:responseTransform/>
+                            </con1:route>
+                        </con1:case>
+                        <con1:case id="_BranchId-7f000001.N1dccba1f.0.152981927bc.N7ff4">
+                            <con1:operator>equals</con1:operator>
+                            <con1:value>'XML-GETATOMICNUMBER'</con1:value>
+                            <con1:route>
+                                <con2:id>_ActionId-7f000001.N1dccba1f.0.152981927bc.N7ff3</con2:id>
+                                <con1:service ref="XMLPostOperations/AtomicNumber" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
                                 <con1:outboundTransform/>
                                 <con1:responseTransform/>
                             </con1:route>
@@ -56,6 +95,7 @@
                         <con1:defaultCase>
                             <con1:route>
                                 <con2:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7f3b</con2:id>
+                                <con1:service ref="XMLPostOperations/AtomicWeight" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
                                 <con1:outboundTransform/>
                                 <con1:responseTransform/>
                             </con1:route>
