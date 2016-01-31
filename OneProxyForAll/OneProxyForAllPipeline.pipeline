@@ -14,7 +14,17 @@
                     <con3:ifThenElse>
                         <con2:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7f34</con2:id>
                         <con3:case id="_BranchId-7f000001.N7d7f9e08.0.15297916a12.N7f33">
-                            <con3:actions/>
+                            <con3:condition>
+                                <con2:xqueryText>$inbound/ctx:transport/ctx:request/http:http-method = 'GET'</con2:xqueryText>
+                            </con3:condition>
+                            <con3:actions>
+                                <con3:assign varName="str_Destination">
+                                    <con2:id>_ActionId-7f000001.6e0f11af.0.15297fbecb7.N7f9a</con2:id>
+                                    <con3:expr>
+                                        <con2:xqueryText>upper-case($inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='RequestName']/@value)</con2:xqueryText>
+                                    </con3:expr>
+                                </con3:assign>
+                            </con3:actions>
                         </con3:case>
                         <con3:default/>
                     </con3:ifThenElse>
