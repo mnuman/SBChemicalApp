@@ -59,15 +59,19 @@
                                 <con2:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7f3c</con2:id>
                                 <con1:service ref="HTTPGetOperations/HttpGetAtomicNumber" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
                                 <con1:outboundTransform>
-                                    <con3:replace contents-only="true" varName="outbound">
-                                        <con2:id>_ActionId-7f000001.N1dccba1f.0.152981927bc.N7f83</con2:id>
+                                    <con3:insert varName="outbound">
+                                        <con2:id>_ActionId-N3f57c7ff.N12e676da.0.152991054b7.N7f96</con2:id>
                                         <con3:location>
-                                            <con2:xpathText>./ctx:transport/ctx:request/http:query-parameters</con2:xpathText>
+                                            <con2:xpathText>./ctx:transport/ctx:request</con2:xpathText>
                                         </con3:location>
+                                        <con3:where>first-child</con3:where>
                                         <con3:expr>
-                                            <con2:xqueryText>$inbound/ctx:transport/ctx:request/http:query-parameters</con2:xqueryText>
+                                            <con2:xqueryText>&lt;http:query-parameters>
+  &lt;http:parameter name="RequestName" value="{$inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='RequestName']/@value}"/>
+  &lt;http:parameter name="elementName" value="{$inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='elementName']/@value}"/>
+&lt;/http:query-parameters></con2:xqueryText>
                                         </con3:expr>
-                                    </con3:replace>
+                                    </con3:insert>
                                 </con1:outboundTransform>
                                 <con1:responseTransform/>
                             </con1:route>
@@ -78,7 +82,21 @@
                             <con1:route>
                                 <con2:id>_ActionId-7f000001.N1dccba1f.0.152981927bc.N7ff8</con2:id>
                                 <con1:service ref="HTTPGetOperations/HttpGetAtomicWeight" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-                                <con1:outboundTransform/>
+                                <con1:outboundTransform>
+                                    <con3:insert varName="outbound">
+                                        <con2:id>_ActionId-N3f57c7ff.N12e676da.0.152991054b7.N7f63</con2:id>
+                                        <con3:location>
+                                            <con2:xpathText>./ctx:transport/ctx:request</con2:xpathText>
+                                        </con3:location>
+                                        <con3:where>first-child</con3:where>
+                                        <con3:expr>
+                                            <con2:xqueryText>&lt;http:query-parameters>
+  &lt;http:parameter name="RequestName" value="{$inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='RequestName']/@value}"/>
+  &lt;http:parameter name="elementName" value="{$inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='elementName']/@value}"/>
+&lt;/http:query-parameters></con2:xqueryText>
+                                        </con3:expr>
+                                    </con3:insert>
+                                </con1:outboundTransform>
                                 <con1:responseTransform/>
                             </con1:route>
                         </con1:case>

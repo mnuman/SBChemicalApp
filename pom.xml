@@ -11,9 +11,6 @@
 
     <modules>
         <module>System</module>
-        <module>XMLPostOperations</module>
-        <module>HTTPGetOperations</module>
-        <module>OneProxyForAll</module>
     </modules>
 
 </project>
