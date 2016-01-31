@@ -6,14 +6,14 @@
         </ser:security>
         <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
             <con:response type="XML">
-                <con1:schema ref="XMLPostOperations/Schema/MessageStructures" element="GetAtomicNumberResponse"/>
+                <con1:schema ref="XMLPostOperations/Schema/MessageStructures" element="GetAtomicWeightResponse"/>
             </con:response>
         </ser:binding>
         <oper:operations enabled="true"/>
         <ser:ws-policy>
             <ser:binding-mode>no-policies</ser:binding-mode>
         </ser:ws-policy>
-        <ser:invoke ref="HTTPGetOperations/HttpGetAtomicNumberPipeline" xsi:type="con:PipelineRef" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+        <ser:invoke ref="HTTPGetOperations/HttpGetAtomicWeightPipeline" xsi:type="con:PipelineRef" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
         <ser:xqConfiguration>
             <ser:snippetVersion>1.0</ser:snippetVersion>
         </ser:xqConfiguration>
@@ -22,7 +22,7 @@
         <tran:provider-id>http</tran:provider-id>
         <tran:inbound>true</tran:inbound>
         <tran:URI>
-            <env:value>/HttpGetAtomicNumber</env:value>
+            <env:value>/HttpGetAtomicWeight</env:value>
         </tran:URI>
         <tran:inbound-properties/>
         <tran:provider-specific xsi:type="http:HttpEndPointConfiguration" xmlns:http="http://www.bea.com/wli/sb/transports/http">

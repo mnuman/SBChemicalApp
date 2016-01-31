@@ -3,7 +3,7 @@
     <con:coreEntry>
         <con:binding type="Mixed" xsi:type="con:MixedBindingType">
             <con:response type="XML">
-                <con1:schema ref="XMLPostOperations/Schema/MessageStructures" element="GetAtomicNumberResponse"/>
+                <con1:schema ref="XMLPostOperations/Schema/MessageStructures" element="GetAtomicWeightResponse"/>
             </con:response>
         </con:binding>
         <con:xqConfiguration>
@@ -16,15 +16,15 @@
                 <con:context/>
                 <con:actions>
                     <con2:route>
-                        <con3:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7ff6</con3:id>
-                        <con2:service ref="XMLPostOperations/AtomicNumber" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7ff0</con3:id>
+                        <con2:service ref="XMLPostOperations/AtomicWeight" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
                         <con2:outboundTransform>
                             <con4:replace varName="body" contents-only="true">
-                                <con3:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7ff3</con3:id>
+                                <con3:id>_ActionId-7f000001.N7d7f9e08.0.15297916a12.N7fed</con3:id>
                                 <con4:expr>
-                                    <con3:xqueryText>&lt;web:GetAtomicNumber xmlns:web="http://www.webserviceX.NET">
+                                    <con3:xqueryText>&lt;web:GetAtomicWeight xmlns:web="http://www.webserviceX.NET">
     &lt;web:ElementName>{data($inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter[@name='elementName']/@value)}&lt;/web:ElementName>
-&lt;/web:GetAtomicNumber></con3:xqueryText>
+&lt;/web:GetAtomicWeight></con3:xqueryText>
                                 </con4:expr>
                             </con4:replace>
                         </con2:outboundTransform>
